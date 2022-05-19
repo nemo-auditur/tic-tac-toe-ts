@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useState } from "react";
+import { useContext, useReducer, useState } from "react";
 
 // Imports mandatory TSX stuffs in order to make useContext working
 // @ts-ignore
@@ -6,15 +6,18 @@ import { DimensionsContext, Dimensions } from "../../App.tsx";
 
 const Lobby: React.FC = () => {
 
-  const [rows, setRows] = useState<number>(0)
-  const [columns, setColumns] = useState<number>(0)
   
   //useContext: to get the value from the store. 
-  const dimensionsContext:Dimensions = useContext(DimensionsContext)
+  const { state, dispatch } = useContext(DimensionsContext)
+  const [rows, setRows] = useState<number>(state.dimensions.rows)
+  const [columns, setColumns] = useState<number>(state.dimensions.columns)
   return (
     <div>
-      rows: {dimensionsContext.dimensions.rows}
-      columns: {dimensionsContext.dimensions.columns}
+      rows in context: {state.dimensions.rows}
+      rows in state: {rows}
+
+      columns in context: {state.dimensions.columns}
+      columns in state: {columns}
   
       {/* Calling our actions on button click */}
       <input
@@ -28,9 +31,7 @@ const Lobby: React.FC = () => {
         }}
       />
       <button
-        onClick={()=>{
-          // dimensionsContext.dimensionsDispatch({type: 'SETDIMENSIONS', rows: rows, columns: columns})
-        }}
+        onClick={()=> dispatch({type: 'SETDIMENSIONS', payload : {rows : rows, columns: columns}})}
       />
     </div>
   );

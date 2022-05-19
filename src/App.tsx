@@ -1,76 +1,84 @@
+import React, { createContext, useContext, useReducer } from "react";
 import "./App.css";
-import React, {createContext, useContext, useState, useReducer} from "react";
-
-//components imports
+// //components imports
 // @ts-ignore
 import Lobby from "./Components/Lobby/index.tsx";
-// import Grid from "./Components/Grid/index.tsx";
-
+// // import Grid from "./Components/Grid/index.tsx";
 
 const DEFAULT_ROWS_VALUE: number = 10;
 const DEFAULT_COLUMNS_VALUE: number = 10;
 
-// Create Dimensions type to setup global state
-export type Dimensions = {
-  dimensions: {
-    rows?: number,
-    columns?: number
-  },
+export function createCtx<StateType, ActionType>(
+  reducer: React.Reducer<StateType, ActionType>,
+  initialState: StateType
+) {
+
+  const defaultDispatch: React.Dispatch<ActionType> = () => initialState
+  const ctx = createContext({
+    state: initialState,
+    dispatch: defaultDispatch
+  })
+
+  function Provider(props: React.PropsWithChildren<{}>) {
+    const [state, dispatch] = useReducer<React.Reducer<StateType, ActionType>>(reducer, initialState)
+    return <ctx.Provider value={{state, dispatch}} {...props}/>
+  }
+
+  return [ctx, Provider] as const
 }
 
-// useContext: Creation of the global state with Dimensions type and null value
-export const DimensionsContext = createContext<Dimensions | null>(null)
-
-// useContext : Create initial value of Dimensions type to
-// inject in the global context
-export const initialDimensions:Dimensions = {
-  dimensions: {
-    rows:10,
-    columns:10
+const initialState = {
+  dimensions : {
+    rows : DEFAULT_ROWS_VALUE,
+    columns: DEFAULT_COLUMNS_VALUE
   }
 }
 
-// An interface for our actions
-type CountAction = {
+type AppState = typeof initialState
+
+type Action = {
   type: string;
-  rows?: number;
-  columns?: number;
+  payload: {
+    rows: number,
+    columns: number
+  }
 };
 
-// An interface for our state
-
-const reducer = (state: Dimensions, action: CountAction) => {
-  const { type, rows, columns } = action;
+function reducer(state: AppState, action: Action):AppState {
+  const { type, payload } = action;
   switch (type) {
     case "SETDIMENSIONS":
       return {
         ...state,
-        columns: columns,
-        rows: rows
+        dimensions: {
+          rows: payload.rows,
+          columns: payload.columns
+        }
       };
     case "RESET":
       return {
-        columns: 3,
-        rows: 3,
+       dimensions : {
+         rows : 10,
+         columns: 10
+       }
       };
     default:
       return state;
   }
-};
+}
 
-const App: React.FC = () => { 
-  
-  return (
-    //wrap up the app with the DimensionsContext
-    <DimensionsContext.Provider value={initialDimensions}>
-    <div className="App-header">
-     <Lobby/>
-      {/* {generateGrid && dimensions.rows !== 0 && dimensions.columns !== 0 ? (
-        <Grid dimensions={dimensions} />
-      ) : null} */}
-    </div>
-    </DimensionsContext.Provider>
-  );
-};
+const [ctx, DimensionsProvider] = createCtx(reducer, initialState)
 
-export default App;
+export const DimensionsContext = ctx
+
+const App = () => {
+  return(
+    <DimensionsProvider>
+      <div className="App-header">
+      <Lobby/>
+      </div>
+    </DimensionsProvider>
+  )
+}
+
+export default App
