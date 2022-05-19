@@ -1,12 +1,12 @@
-import { useContext, useReducer, useState } from "react";
+import { useContext, useState } from "react";
 
 // Imports mandatory TSX stuffs in order to make useContext working
 // @ts-ignore
-import { DimensionsContext, Dimensions } from "../../App.tsx";
+// import { DimensionsContext, Dimensions } from "../../App.tsx";
+// @ts-ignore
+import {DimensionsContext} from '../../reducer/index.tsx'
 
 const Lobby: React.FC = () => {
-
-  
   //useContext: to get the value from the store. 
   const { state, dispatch } = useContext(DimensionsContext)
   const [rows, setRows] = useState<number>(state.dimensions.rows)
