@@ -1,13 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Smooch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300&display=swap');
+:root {
+  --clr-neon: hsl(317 100% 54%);
+  --clr-blue: #A5FFFE;
+  --clr-bg: rgb(18, 8, 34);
+  --clr-green: #00FFAB
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
+  background-color: var(--clr-bg);
+  color: var(--clr-neon);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Smooch', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+input {
+  font-family: 'Smooch', cursive;
+  font-size: 1rem;
+}
+
+.blue {
+  color: var(--clr-blue);
+}
+
+.green{
+  color: var(--clr-green)
 }

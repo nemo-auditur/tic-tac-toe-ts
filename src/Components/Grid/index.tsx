@@ -1,31 +1,25 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+// @ts-ignore
+import { DimensionsContext } from "../../reducer/index.tsx";
 
-interface Props {
-  dimensions?: {
-    rows: number;
-    columns: number;
-  };
-}
-
-const Grid: React.FC<Props> = (props) => {
+const Grid: React.FC = () => {
   // get props more readable
-  const { dimensions } = props;
-
-  //setStates
+  const { state } = useContext(DimensionsContext);
   return (
     <>
-      <div>
-        {[...Array(dimensions.rows)].map((x, i) => {
-          return (
-            <div key={i} style={{ display: "flex" }}>
-              {[...Array(dimensions.columns)].map((x,i) => {
-                return <div key={i}>Hello{i}</div>;
-              })}
-            </div>
-          );
-        })}
-      </div>
-      
+      {state.displayGrid === true ? (
+        <div>
+          {[...Array(state.dimensions.rows)].map((x, i) => {
+            return (
+              <div key={i} style={{ display: "flex" }}>
+                {[...Array(state.dimensions.columns)].map((x, i) => {
+                  return <div key={i}>Hello{i}</div>;
+                })}
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
     </>
   );
 };
