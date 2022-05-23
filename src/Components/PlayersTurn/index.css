@@ -1,0 +1,9 @@
+.sentence{
+    font-family: "Roboto Flex", sans-serif;
+    margin: 20px 0;
+}
+
+.playerName {
+    font-family: "Smooch", cursive;
+    padding: 0 10px ;
+}

@@ -1,15 +1,16 @@
 import { useContext, useState } from "react";
 import "./index.css";
+import { motion } from "framer-motion";
 
 // Imports mandatory TSX stuffs in order to make useContext working
 // @ts-ignore
 import { DimensionsContext } from "../../reducer/index.tsx";
 
+//Use: Display at the first start of the App
+// allowing users to setup the game and choose
+// names players and the size of the grid
 const Lobby: React.FC = () => {
-  //useContext: to get the value from the store.
   const { state, dispatch } = useContext(DimensionsContext);
-  const [rows, setRows] = useState<number>(state.dimensions.rows);
-  const [columns, setColumns] = useState<number>(state.dimensions.columns);
   const [player1, setPlayer1] = useState<string>(state.players.player1);
   const [player2, setPlayer2] = useState<string>(state.players.player2);
   const [step, setStep] = useState<number>(1);
@@ -19,7 +20,12 @@ const Lobby: React.FC = () => {
       {state.displayGrid === false && (
         <div className="lobbyContainer">
           {step === 1 ? (
-            <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 3 }}
+            >
               <span>Choose names for players</span>
               <div className="playerSelecterContainerBlue">
                 <label className="blue">Player 1</label>
@@ -33,11 +39,16 @@ const Lobby: React.FC = () => {
                   }}
                 />
               </div>
-            </>
+            </motion.div>
           ) : null}
 
           {step === 2 ? (
-            <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 3 }}
+            >
               <span>Choose names for players</span>
               <div className="playerSelecterContainerGreen">
                 <label className="green">Player 2</label>
@@ -51,38 +62,57 @@ const Lobby: React.FC = () => {
                   }}
                 />
               </div>
-            </>
+            </motion.div>
           ) : null}
 
           {step === 3 ? (
-            <>
-              <input
-                onChange={(e) => {
-                  setRows(parseInt(e.target.value));
-                }}
-              />
-              <input
-                onChange={(e) => {
-                  setColumns(parseInt(e.target.value));
-                }}
-              />
-            </>
-          ) : null}
-          <div className="buttonContainer">
-            <button onClick={() => setStep(step - 1)}>Back</button>
-            <button
-              onClick={() =>
-                step === 4
-                  ? dispatch({
-                      type: "SETDIMENSIONS",
-                      payload: { rows: rows, columns: columns },
-                    })
-                  : setStep(step + 1)
-              }
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 3 }}
             >
-              Next
-            </button>
-          </div>
+              <span>Select the dimensions of your grid</span>
+              <div className="numberSelectorContainer">
+                {[...Array(10)].map((value, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        dispatch({
+                          type: "SETDIMENSIONS",
+                          dimensions: {
+                            rows: index + 1,
+                            columns: index + 1,
+                          },
+                          players: {
+                            player1: { name: player1 },
+                            player2: { name: player2 },
+                          },
+                        });
+                      }}
+                    >
+                      {index + 1}
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          ) : null}
+          {step !== 3 ? (
+            <motion.div
+              className="buttonContainer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 3 }}
+            >
+              {step !== 1 ? (
+                <button onClick={() => setStep(step - 1)}>Back</button>
+              ) : null}
+              <button onClick={() => setStep(step + 1)}>Next</button>
+            </motion.div>
+          ) : null}
         </div>
       )}
     </>

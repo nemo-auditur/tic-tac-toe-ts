@@ -1,0 +1,12 @@
+
+
+.gridItem {
+  min-width: 40px;
+  min-height: 40px;
+  border: 1px solid var(--clr-neon);
+  opacity: 0.3;
+}
+
+.gridItem:hover {
+  opacity: 1;
+}
