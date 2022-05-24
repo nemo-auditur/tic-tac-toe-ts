@@ -53,14 +53,14 @@ const initialState = {
     columns: DEFAULT_COLUMNS_VALUE,
   },
   // modify to reset
-  displayGrid: false,
+  displayGrid: true,
   players: {
     player1: {
-      name: "",
+      name: "a",
       cells: [] as Cells[],
     },
     player2: {
-      name: "",
+      name: "b",
       cells: [] as Cells[],
     },
   },

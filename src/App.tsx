@@ -1,14 +1,11 @@
-// @ts-nocheck
 import React from "react";
-import { DimensionsProvider } from "../src/reducer/index.tsx";
+import { DimensionsProvider } from "../src/reducer/";
 import "./App.css";
 // //components imports
-// @ts-ignore
-import Lobby from "./Components/Lobby/index.tsx";
-// @ts-ignore
-import Grid from "./Components/Grid/index.tsx";
-import Logo from "./Components/Logo/index.tsx";
-import PlayerTurn from "./Components/PlayersTurn/index.tsx";
+import Lobby from "./Components/Lobby/";
+import Grid from "./Components/Grid/";
+import Logo from "./Components/Logo/";
+import PlayerTurn from "./Components/PlayersTurn/";
 
 const App = () => {
   return (

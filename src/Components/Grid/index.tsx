@@ -3,6 +3,10 @@ import "./index.css";
 // @ts-ignore
 import { DimensionsContext } from "../../reducer/index.tsx";
 
+//component import
+// @ts-ignore
+import Cell from "./Cell/index.tsx";
+
 // Use: display the tic tac toe grid
 const Grid: React.FC = () => {
   // get props more readable
@@ -40,15 +44,16 @@ const Grid: React.FC = () => {
               // construct a row
               <span key={rowIndex} style={{ display: "flex" }}>
                 {/* construct the columns in one row */}
-                {[...Array(state.dimensions.columns)].map((x, column) => {
+                {[...Array(state.dimensions.columns)].map((x, columnIndex) => {
                   return (
-                    <span
-                      className="gridItem"
-                      key={column}
+                    <Cell
+                      key={columnIndex}
+                      column={columnIndex}
+                      row={rowIndex}
                       onClick={() => {
-                        handleCellSelection(rowIndex, column);
+                        handleCellSelection(rowIndex, columnIndex);
                       }}
-                    ></span>
+                    ></Cell>
                   );
                 })}
               </span>
