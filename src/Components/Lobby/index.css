@@ -1,0 +1,159 @@
+/* container  */
+.lobbyContainer {
+  font-family: "Roboto Flex", sans-serif;
+  display: flex;
+  height: 250px;
+  width: 13em;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  animation: showLobby 7000ms linear forwards;
+}
+
+/* Make the lobby appearing after the logo animation */
+@keyframes showLobby {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+input {
+  position: relative;
+  width: 50%;
+  outline: none;
+  background-color: var(--clr-bg);
+  border-width: 0;
+  padding: 5px;
+  font-family: "Roboto Flex", sans-serif;
+  text-align: center;
+}
+
+/* Handle button back and next styling */
+/* Only custom element for button */
+/* Others elements are modify on le button tag itself */
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+button {
+  position: relative;
+  min-width: 5em;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 100;
+  font-size: 1.5rem;
+  color: var(--clr-neon);
+  background-color: var(--clr-bg);
+  display: inline-block;
+  border: currentColor 0.05em solid;
+  padding: 0.25em 1em;
+  border-radius: 0.25em;
+  text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.5), 0 0 0.45em currentColor;
+  box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);
+  font-family: "Smooch", cursive;
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: 0 0 1em 0.5em var(--clr-neon);
+  opacity: 0;
+  z-index: -1;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  background: var(--clr-neon);
+  top: 120%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: perspective(2em) rotateX(40deg) scale(1, 0.35);
+  filter: blur(1.5em);
+  opacity: 0.7;
+}
+
+
+button:hover::before,
+button:focus::before {
+  opacity: 1;
+  pointer-events: none;
+}
+button:hover::after,
+button:focus::after {
+  opacity: 1;
+}
+
+/* Player selection */
+
+.playerSelecterContainerBlue {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Smooch", cursive;
+}
+
+.playerSelecterContainerGreen {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Smooch", cursive;
+}
+
+.playerSelecterContainerBlue::before {
+  content: "";
+  position: absolute;
+  background: var(--clr-blue);
+  top: 110%;
+  right: 0;
+  width: 50%;
+  height: 2px;
+  filter: blur(1px);
+}
+
+.playerSelecterContainerGreen::before {
+  content: "";
+  position: absolute;
+  background: var(--clr-green);
+  top: 110%;
+  right: 0;
+  width: 50%;
+  height: 2px;
+  filter: blur(1px);
+}
+
+/* Handle dimensions selections */
+.numberSelectorContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.numberSelectorContainer div {
+  display: flex;
+}
+
+.numberSelectorContainer div {
+  font-family: "Smooch", cursive;
+  color: var(--clr-neon);
+  text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.5), 0 0 0.45em currentColor;
+  cursor: pointer;
+  opacity: 0.7;
+  text-decoration: none;
+}
+
+.numberSelectorContainer div:hover{
+  opacity: 1;
+}

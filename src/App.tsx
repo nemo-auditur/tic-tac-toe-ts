@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { DimensionsProvider } from "../src/reducer/";
+import "./App.css";
+// //components imports
+// @ts-ignore
+import Lobby from "./Components/Lobby/index.tsx";
+// @ts-ignore
+import Grid from "./Components/Grid/index.tsx";
+// @ts-ignore
+import Logo from "./Components/Logo/index.tsx";
+// @ts-ignore
+import PlayerTurn from "./Components/PlayersTurn/index.tsx";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DimensionsProvider>
+      <div className="App-header">
+        <Logo />
+        <Lobby />
+        <PlayerTurn />
+        <Grid />
+      </div>
+    </DimensionsProvider>
   );
-}
+};
 
 export default App;
